@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef KDTREE_H
-#define KDTREE_H
 
 #include <cstdlib>
 
@@ -163,5 +161,3 @@ std::ostream& operator << (std::ostream& os, const Point& p);
 std::ostream& operator << (std::ostream& os, const PointNode& pn);
 
 
-
-#endif

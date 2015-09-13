@@ -72,7 +72,16 @@ PointNode* KdTree::buildRecursive(std::vector<Point>& list, int left, int right,
 		}
  
 		//printList(list);
-		pn.left = buildRecursive(list, left, left + (right - left) / 2 - 1, (axis + 1) % 2);
+		//2 elements left : first is median, second is the right leaf
+		if(right - left == 1)
+		{
+			pn.left = nullptr;
+		}
+		else
+		{
+			pn.left = buildRecursive(list, left, left + (right - left) / 2 - 1, (axis + 1) % 2);
+		}
+		
 		pn.right = buildRecursive(list, left + (right - left) / 2 + 1, right, (axis + 1) % 2);
 	}
 	
@@ -132,7 +141,7 @@ void KdTree::insertPoint(Point* searchingPoint, int currentBest[], float current
 	}
 	
 	float sqDist = (nearbyPoint->x - searchingPoint->x) * (nearbyPoint->x - searchingPoint->x) + (nearbyPoint->y - searchingPoint->y) * (nearbyPoint->y - searchingPoint->y);
-	if(nearbyCount > 0 && currentBestDistancesSq[nearbyCount - 1] <= sqDist)
+	if(nearbyCount == MAXNEARBY && currentBestDistancesSq[MAXNEARBY - 1] <= sqDist)
 	{
 		return;
 	}
